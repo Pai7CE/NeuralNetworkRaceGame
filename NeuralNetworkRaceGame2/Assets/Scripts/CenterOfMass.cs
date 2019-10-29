@@ -11,8 +11,6 @@ public class CenterOfMass : MonoBehaviour
     private Vector3 offset = new Vector3(-16.8f, -1f, -21.9f);
     void Start()
     {
-        Debug.Log(target.centerOfMass);
-        Debug.Log(newCenterOfMass.position);
         target.centerOfMass = newCenterOfMass.position + offset;        
     }
 
