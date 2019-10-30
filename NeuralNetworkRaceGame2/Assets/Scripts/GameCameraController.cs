@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class GameCameraController : MonoBehaviour
 {
+    public Transform objectToFollow;
+    public Vector3 offset = new Vector3(0f,.83f,-2.54f);
+    public float followSpeed = 10;
+    public float lookSpeed = 10;
+
     public void LookAtTarget()
     {
         Vector3 _lookDirection = objectToFollow.position - transform.position;
@@ -26,8 +31,5 @@ public class GameCameraController : MonoBehaviour
         MoveToTarget();
     }
 
-    public Transform objectToFollow;
-    public Vector3 offset;
-    public float followSpeed = 10;
-    public float lookSpeed = 10;
+   
 }

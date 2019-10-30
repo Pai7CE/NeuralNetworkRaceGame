@@ -594,7 +594,7 @@ GameObject:
   - component: {fileID: 2838634436307674964}
   - component: {fileID: 2838634436307674966}
   m_Layer: 0
-  m_Name: Drift Version V1 1
+  m_Name: V1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1057,7 +1057,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3546005123701444612}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.8, y: -0.83, z: -21.9}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2838634435012200768}

@@ -8,10 +8,12 @@ public class CenterOfMass : MonoBehaviour
     public Rigidbody target;
     public Transform newCenterOfMass;
 
-    private Vector3 offset = new Vector3(-16.8f, -1f, -21.9f);
+    private Vector3 offset = new Vector3(-19.8f, -0.1f, -5.2f); //no idea where the offset is from
     void Start()
     {
-        target.centerOfMass = newCenterOfMass.position + offset;        
+        Debug.Log(target.centerOfMass);
+        Debug.Log(newCenterOfMass.position);
+        target.centerOfMass = newCenterOfMass.position - target.position;        
     }
 
 }
