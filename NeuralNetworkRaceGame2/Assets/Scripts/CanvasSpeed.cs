@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class GUISpeed : MonoBehaviour
+public class CanvasSpeed : MonoBehaviour
 {
 
     public Rigidbody target;

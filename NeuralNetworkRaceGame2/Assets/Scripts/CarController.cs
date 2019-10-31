@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameCarController: MonoBehaviour
+public class CarController: MonoBehaviour
 {
     private float m_horizontalInput;
     private float m_verticalInput;
@@ -13,6 +13,8 @@ public class GameCarController: MonoBehaviour
     public WheelCollider rearDriverW, rearPassengerW;
     public Transform frontDriverT, frontPassengerT;
     public Transform rearDriverT, rearPassengerT;
+    public MeshRenderer leftBrakeLight;
+    public MeshRenderer rightBrakeLight;
     public float maxSteerAngle = 30;
     public float motorForce = 50;
     public float brakeForce = 50;
@@ -70,6 +72,15 @@ public class GameCarController: MonoBehaviour
             frontDriverW.brakeTorque = m_negVerticalInput * brakeForce;
             frontPassengerW.brakeTorque = m_negVerticalInput * brakeForce;
         }
+        //responsible for visual brake lights
+        if (Input.GetKey(KeyCode.S))
+        {
+            enableBrakeLights();
+        }
+        else
+        {
+            disableBrakeLights();
+        }
     }
 
     private void Decelarate()
@@ -101,8 +112,18 @@ public class GameCarController: MonoBehaviour
         _transform.position = pos;
         _transform.rotation = quat;
     }
+    private void enableBrakeLights()
+    {
+        leftBrakeLight.enabled = true;
+        rightBrakeLight.enabled = true;
+    }
+    private void disableBrakeLights()
+    {
+        leftBrakeLight.enabled = false;
+        rightBrakeLight.enabled = false;
+    }
 
-    private void FixedUpdate()
+private void FixedUpdate()
     {
         GetInput();
         Steer();

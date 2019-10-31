@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameCameraController : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
     public Transform objectToFollow;
     public Vector3 offset = new Vector3(0f,.83f,-2.54f);
