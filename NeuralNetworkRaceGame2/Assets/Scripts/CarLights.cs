@@ -6,10 +6,14 @@ public class CarLights : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public Light red;
-    public Light blue;
+    public Light redLight;
+    public Light blueLight;
 
-    public float maxInstensity;
+    public LensFlare redFlare;
+    public LensFlare blueFlare;
+
+    public float maxInstensityLights;
+    public float maxIntensityFlares;
     public float speed;
 
     private float trueMaxIntensity;
@@ -17,7 +21,7 @@ public class CarLights : MonoBehaviour
 
     void Start()
     {
-        trueMaxIntensity = maxInstensity / 2;
+        trueMaxIntensity = maxInstensityLights / 2;
     }
 
     // Update is called once per frame
@@ -31,14 +35,20 @@ public class CarLights : MonoBehaviour
     {
         if (resume)
         {
-        Debug.Log(Time.time);
-        red.intensity = trueMaxIntensity * Mathf.Cos(Time.time * speed) + trueMaxIntensity;
-        blue.intensity = -trueMaxIntensity * Mathf.Cos(Time.time * speed) + trueMaxIntensity;
+            Debug.Log(Time.time);
+            redLight.intensity = trueMaxIntensity * Mathf.Cos(Time.time * speed) + trueMaxIntensity;
+            blueLight.intensity = -trueMaxIntensity * Mathf.Cos(Time.time * speed) + trueMaxIntensity;
+
+            redFlare.brightness = -maxIntensityFlares * Mathf.Cos(Time.time * speed) + maxIntensityFlares;
+            blueFlare.brightness = maxIntensityFlares * Mathf.Cos(Time.time * speed) + maxIntensityFlares;
         }
         else
         {
-            red.intensity = 0;
-            blue.intensity = 0;
+            redLight.intensity = 0;
+            blueLight.intensity = 0;
+            
+            redFlare.brightness = 0;
+            blueFlare.brightness = 0;
         }
     }
     public void checkToContinue()
