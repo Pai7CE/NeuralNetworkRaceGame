@@ -9,14 +9,14 @@ public class CameraController : MonoBehaviour
     public float followSpeed = 10;
     public float lookSpeed = 10;
 
-    public void LookAtTarget()
+    private void LookAtTarget()
     {
         Vector3 _lookDirection = objectToFollow.position - transform.position;
         Quaternion _rot = Quaternion.LookRotation(_lookDirection, Vector3.up);
         transform.rotation = Quaternion.Lerp(transform.rotation, _rot, lookSpeed * Time.deltaTime);
     }
 
-    public void MoveToTarget()
+    private void MoveToTarget()
     {
         Vector3 _targetPos = objectToFollow.position +
                              objectToFollow.forward * offset.z +

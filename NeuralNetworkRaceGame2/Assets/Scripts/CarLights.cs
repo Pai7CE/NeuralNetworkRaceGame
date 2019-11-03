@@ -31,7 +31,7 @@ public class CarLights : MonoBehaviour
         siren();
     }
 
-    public void siren()
+    private void siren()
     {
         if (resume)
         {
@@ -51,7 +51,7 @@ public class CarLights : MonoBehaviour
             blueFlare.brightness = 0;
         }
     }
-    public void checkToContinue()
+    private void checkToContinue()
     {
         if (Input.GetKeyDown(KeyCode.L))
         {
