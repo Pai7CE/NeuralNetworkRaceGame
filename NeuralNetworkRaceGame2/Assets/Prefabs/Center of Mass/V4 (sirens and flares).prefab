@@ -92,6 +92,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   detectCollision: 0
   car: {fileID: 8917566749586488807}
+--- !u!114 &287333794587906333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8917566749586488807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4404d85b5f40b0468ec9428d5a28475, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  halfway: {fileID: 0}
+  finish: {fileID: 0}
+  bestMinuteBox: {fileID: 0}
+  bestSecondBox: {fileID: 0}
+  bestMilliBox: {fileID: 0}
 --- !u!1 &4563323049764828355
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,6 +641,11 @@ PrefabInstance:
       propertyPath: rightBrakeLight
       value: 
       objectReference: {fileID: 5134526301507239362}
+    - target: {fileID: 6806342454206382627, guid: 633d4faec92e9374da85c6f8354a45df,
+        type: 3}
+      propertyPath: brakeForce
+      value: 1200
+      objectReference: {fileID: 0}
     - target: {fileID: 6806342454367642836, guid: 633d4faec92e9374da85c6f8354a45df,
         type: 3}
       propertyPath: m_Name

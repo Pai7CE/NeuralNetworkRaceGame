@@ -276,7 +276,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 435213146}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -425,6 +425,12 @@ Terrain:
   m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
   m_GroupingID: 0
   m_AllowAutoConnect: 1
+--- !u!1 &1263703663 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2029667523021663815, guid: da5188a903034bd4b8e020541fe65732,
+    type: 3}
+  m_PrefabInstance: {fileID: 3123573009290627347}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1281426775
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,7 +605,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2075223254}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -973,5 +979,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8917566749586488808, guid: 3c34ef674f2d5f84a8bb13ef40c6ab46,
+        type: 3}
+      propertyPath: rearWheelDrive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5704015256378167161, guid: 3c34ef674f2d5f84a8bb13ef40c6ab46,
+        type: 3}
+      propertyPath: detectCollision
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5704015256378167161, guid: 3c34ef674f2d5f84a8bb13ef40c6ab46,
+        type: 3}
+      propertyPath: wall
+      value: 
+      objectReference: {fileID: 1263703663}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c34ef674f2d5f84a8bb13ef40c6ab46, type: 3}

@@ -6,11 +6,12 @@ public class OnCollissionWall : MonoBehaviour
 {
     public bool detectCollision = false;
     public GameObject car;
-    //public Vector3 startPosition;
+    public GameObject wall;
 
     private Vector3 startPosition;
     private Quaternion startRotation;
     private Rigidbody rbCar;
+
 
     private void Start()
     { //filling needed variables
@@ -25,7 +26,7 @@ public class OnCollissionWall : MonoBehaviour
         Debug.Log(collision.gameObject.name);
         if (detectCollision)
         {
-            if(collision.gameObject.name == "track_walls") //
+            if(collision.gameObject == wall) 
             {
                 car.transform.position = startPosition;
                 car.transform.rotation = startRotation;
