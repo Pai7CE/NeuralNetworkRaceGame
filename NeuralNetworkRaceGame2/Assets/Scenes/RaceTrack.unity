@@ -327,29 +327,6 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1335380317685487132}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &911319524 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8917566749586488807, guid: 3c34ef674f2d5f84a8bb13ef40c6ab46,
-    type: 3}
-  m_PrefabInstance: {fileID: 7633439320838029261}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &911319529
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 911319524}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4404d85b5f40b0468ec9428d5a28475, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  halfway: {fileID: 435213148}
-  finish: {fileID: 2075223256}
-  bestMinuteBox: {fileID: 1414903785}
-  bestSecondBox: {fileID: 587031105}
-  bestMilliBox: {fileID: 1376665417}
 --- !u!1 &1010903920
 GameObject:
   m_ObjectHideFlags: 0
@@ -987,12 +964,37 @@ PrefabInstance:
     - target: {fileID: 5704015256378167161, guid: 3c34ef674f2d5f84a8bb13ef40c6ab46,
         type: 3}
       propertyPath: detectCollision
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5704015256378167161, guid: 3c34ef674f2d5f84a8bb13ef40c6ab46,
         type: 3}
       propertyPath: wall
       value: 
       objectReference: {fileID: 1263703663}
+    - target: {fileID: 287333794587906333, guid: 3c34ef674f2d5f84a8bb13ef40c6ab46,
+        type: 3}
+      propertyPath: halfway
+      value: 
+      objectReference: {fileID: 435213148}
+    - target: {fileID: 287333794587906333, guid: 3c34ef674f2d5f84a8bb13ef40c6ab46,
+        type: 3}
+      propertyPath: finish
+      value: 
+      objectReference: {fileID: 2075223256}
+    - target: {fileID: 287333794587906333, guid: 3c34ef674f2d5f84a8bb13ef40c6ab46,
+        type: 3}
+      propertyPath: bestMilliBox
+      value: 
+      objectReference: {fileID: 1376665417}
+    - target: {fileID: 287333794587906333, guid: 3c34ef674f2d5f84a8bb13ef40c6ab46,
+        type: 3}
+      propertyPath: bestSecondBox
+      value: 
+      objectReference: {fileID: 587031105}
+    - target: {fileID: 287333794587906333, guid: 3c34ef674f2d5f84a8bb13ef40c6ab46,
+        type: 3}
+      propertyPath: bestMinuteBox
+      value: 
+      objectReference: {fileID: 1414903785}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3c34ef674f2d5f84a8bb13ef40c6ab46, type: 3}
