@@ -1,0 +1,7 @@
+pip install -U setuptools 
+pip3 install mlagents
+cd ml-agents-envs
+pip3 install -e ./
+cd ..
+cd ml-agents
+pip3 install -e ./

@@ -17,14 +17,17 @@ public class CarAgent : Agent
     private Checkpoint checkpoint;
     private NNCarController carController;
 
+    private float dist;
     void Start()
     {
         //Initializing components
         carController = gameObject.GetComponent<NNCarController>();
         checkpoint = gameObject.GetComponent<Checkpoint>();
         rBody = gameObject.GetComponent<Rigidbody>();
-
+         
         nextCheckpoint = checkpoint.nextCheckpoint();
+
+        dist = Vector3.Distance(nextCheckpoint.transform.position, gameObject.transform.position);
     }
 
     public override void CollectObservations()
@@ -57,6 +60,7 @@ public class CarAgent : Agent
 
     public override void AgentAction(float[] vectorAction)
     {
+        float oldist = Vector3.Distance(nextCheckpoint.transform.position, gameObject.transform.position);
         Vector3 controlSignal = Vector3.zero;
         controlSignal.z = vectorAction[0];
         controlSignal.x = vectorAction[1];
@@ -66,6 +70,12 @@ public class CarAgent : Agent
         //on screen monitoring
         Monitor.Log("Steering", controlSignal.z);
         Monitor.Log("Driving", controlSignal.x);
+
+        float newdist = Vector3.Distance(nextCheckpoint.transform.position, gameObject.transform.position);
+        if (newdist < oldist)
+        {
+            AddReward(.1f);
+        }
         
     }
 
@@ -73,7 +83,7 @@ public class CarAgent : Agent
     {
         if(collision.gameObject == wall)
         {
-            AddReward(-1.0f);
+            AddReward(-.8f);
             Debug.Log("reward removed");
             Done();
         }
@@ -82,7 +92,7 @@ public class CarAgent : Agent
     {
         if(other.gameObject == nextCheckpoint)
         {
-            AddReward(1.0f);
+            AddReward(1f);
             Debug.Log("reward added");
             //updating next checkpoint
             nextCheckpoint = checkpoint.nextCheckpoint();
