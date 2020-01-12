@@ -25,7 +25,7 @@ public class OnCollissionWall : MonoBehaviour
         Debug.Log("collision detected");
         Debug.Log(collision.gameObject.name);
         if (detectCollision)
-        {
+        {            
             if(collision.gameObject == wall) 
             {
                 car.transform.position = startPosition;

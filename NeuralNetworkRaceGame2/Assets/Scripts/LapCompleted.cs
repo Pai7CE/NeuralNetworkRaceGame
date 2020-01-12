@@ -13,15 +13,20 @@ public class LapCompleted : MonoBehaviour
     public GameObject bestSecondBox;
     public GameObject bestMilliBox;
 
+    public List<GameObject> checkpoints = new List<GameObject>();
+
     private float countMilli;
     private int countSecond;
     private int countMinute;
+
+    private GameObject checkpoint0;
 
 
     private bool halfwayReached;
     private bool initialLap;
     void Start()
     {
+        checkpoints[0] = checkpoint0;
         halfwayReached = false;
         initialLap = true;
     }
