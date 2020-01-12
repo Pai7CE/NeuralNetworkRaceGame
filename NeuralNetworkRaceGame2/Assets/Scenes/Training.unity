@@ -1537,7 +1537,6 @@ GameObject:
   - component: {fileID: 922364521}
   - component: {fileID: 922364520}
   - component: {fileID: 922364519}
-  - component: {fileID: 922364522}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1603,29 +1602,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 922364518}
-  m_LocalRotation: {x: -0.20095977, y: -0.50276214, z: 0.12141168, w: -0.8319283}
-  m_LocalPosition: {x: 7.3685284, y: 2.6039104, z: -35.745667}
+  m_LocalRotation: {x: 0.30208096, y: 0.011438668, z: -0.003625363, w: 0.9532067}
+  m_LocalPosition: {x: 11.292011, y: 67.77005, z: -107.754295}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &922364522
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 922364518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b00399725f376549ae4baab29a73cd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  objectToFollow: {fileID: 1630421007}
-  offset: {x: 0, y: 0.83, z: -2.54}
-  followSpeed: 10
-  lookSpeed: 10
 --- !u!1 &969852493
 GameObject:
   m_ObjectHideFlags: 0
@@ -3568,12 +3551,6 @@ MonoBehaviour:
   - {fileID: 1750670764}
   - {fileID: 733763512}
   - {fileID: 1812525312}
---- !u!4 &1630421007 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1157394759546625452, guid: 286f73a126ba8614db7c0933e3026dde,
-    type: 3}
-  m_PrefabInstance: {fileID: 1703081484}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1677831411
 GameObject:
   m_ObjectHideFlags: 0
@@ -3743,13 +3720,29 @@ PrefabInstance:
       propertyPath: wall
       value: 
       objectReference: {fileID: 1701463644}
+    - target: {fileID: 1966375537, guid: 286f73a126ba8614db7c0933e3026dde, type: 3}
+      propertyPath: agentParameters.onDemandDecision
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1966375537, guid: 286f73a126ba8614db7c0933e3026dde, type: 3}
+      propertyPath: agentParameters.numberOfActionsBetweenDecisions
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1966375538, guid: 286f73a126ba8614db7c0933e3026dde, type: 3}
       propertyPath: m_BehaviorName
-      value: CarBehavior
+      value: CarBrain
       objectReference: {fileID: 0}
     - target: {fileID: 1966375538, guid: 286f73a126ba8614db7c0933e3026dde, type: 3}
       propertyPath: m_BrainParameters.vectorActionSpaceType
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1966375538, guid: 286f73a126ba8614db7c0933e3026dde, type: 3}
+      propertyPath: m_BrainParameters.vectorActionSize.Array.data[0]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1966375538, guid: 286f73a126ba8614db7c0933e3026dde, type: 3}
+      propertyPath: m_BrainParameters.vectorObservationSize
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 286f73a126ba8614db7c0933e3026dde, type: 3}

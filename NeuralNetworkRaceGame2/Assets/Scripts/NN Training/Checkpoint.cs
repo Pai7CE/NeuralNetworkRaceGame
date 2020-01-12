@@ -7,19 +7,11 @@ public class Checkpoint : MonoBehaviour
     public List<GameObject> checkpoints = new List<GameObject>();
 
     private int checkpointCount;
-    private int finish;
 
     // Start is called before the first frame update
     void Start()
     {
         checkpointCount = 0; //Starting with 0
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     private void OnTriggerEnter(Collider other)
@@ -39,5 +31,10 @@ public class Checkpoint : MonoBehaviour
     private void resetCheckpoints()
     {
         checkpointCount = 0;
+    }
+
+    public GameObject nextCheckpoint() //returns the next checkpoint
+    {
+        return checkpoints[checkpointCount];
     }
 }

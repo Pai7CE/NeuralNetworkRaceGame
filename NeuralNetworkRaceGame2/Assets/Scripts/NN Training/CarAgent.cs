@@ -7,22 +7,35 @@ public class CarAgent : Agent
 {
     public GameObject wall;
 
+    
     private Vector3 resetPosition;
     private Quaternion resetAngle;
-    private Rigidbody rBody;
-
+    private GameObject nextCheckpoint;
     
+    //Components
+    private Rigidbody rBody;
+    private Checkpoint checkpoint;
     private NNCarController carController;
 
     void Start()
     {
-        
+        //Initializing components
         carController = gameObject.GetComponent<NNCarController>();
+        checkpoint = gameObject.GetComponent<Checkpoint>();
+        rBody = gameObject.GetComponent<Rigidbody>();
+
+        nextCheckpoint = checkpoint.nextCheckpoint();
     }
 
     public override void CollectObservations()
     {
-        
+        //Checkpoint and Car positions
+        AddVectorObs(nextCheckpoint.transform.localPosition);
+        AddVectorObs(gameObject.transform.localPosition);
+
+        //Agent velocity
+        AddVectorObs(rBody.velocity.x);
+        AddVectorObs(rBody.velocity.z);
     }
 
     //For manual control
@@ -38,7 +51,6 @@ public class CarAgent : Agent
 
     public override void AgentReset()
     {
-        Debug.Log("reset");
         gameObject.GetComponent<CollisionWall>().resetCar(); //resets the car from external script
 
     }
@@ -51,6 +63,7 @@ public class CarAgent : Agent
         carController.Steer(controlSignal.z);
         carController.Drive(controlSignal.x);
 
+        //on screen monitoring
         Monitor.Log("Steering", controlSignal.z);
         Monitor.Log("Driving", controlSignal.x);
         
@@ -60,7 +73,19 @@ public class CarAgent : Agent
     {
         if(collision.gameObject == wall)
         {
+            AddReward(-1.0f);
+            Debug.Log("reward removed");
             Done();
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject == nextCheckpoint)
+        {
+            AddReward(1.0f);
+            Debug.Log("reward added");
+            //updating next checkpoint
+            nextCheckpoint = checkpoint.nextCheckpoint();
         }
     }
 
