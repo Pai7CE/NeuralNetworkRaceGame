@@ -4,6 +4,45 @@ using UnityEngine;
 
 public class NNCarController: MonoBehaviour
 {
+
+    [Header("Wheelcollider")]
+    public WheelCollider frontDriverW;
+    public WheelCollider frontPassengerW;
+    public WheelCollider rearDriverW;
+    public WheelCollider rearPassengerW;
+
+
+    [Header("Transform")]
+
+    public Transform frontDriverT;
+    public Transform frontPassengerT;
+    public Transform rearDriverT;
+    public Transform rearPassengerT;
+
+    [Header("Brakes")]
+
+    public MeshRenderer leftBrakeLight;
+    public MeshRenderer rightBrakeLight;
+
+    [Header("Sensors")]
+    public float sensorLength = 15f;
+    public Transform sensorForward;
+    public Transform sensorLeft;
+    public Transform sensorRight;
+    public float startPositionSide;
+    public float sideSensorAngle;
+    
+    [Header("General")]
+
+    public float maxSteerAngle = 30;
+    public float motorForce = 50;
+    public float brakeForce = 50;
+    //public float naturalDecelaration;
+    //public float wheelTurnDegree = 1;
+
+    public bool rearWheelDrive = false;
+    public bool frontWheelDrive = false;
+
     private float newSteerangle = 0f;
 
     private float newRPMotor = 0;
@@ -16,27 +55,28 @@ public class NNCarController: MonoBehaviour
     private float newFPBrake = 0;
     private float newFDBrake = 0;
 
-    public WheelCollider frontDriverW, frontPassengerW;
-    public WheelCollider rearDriverW, rearPassengerW;
-    public Transform frontDriverT, frontPassengerT;
-    public Transform rearDriverT, rearPassengerT;
-    public MeshRenderer leftBrakeLight;
-    public MeshRenderer rightBrakeLight;
-    public float maxSteerAngle = 30;
-    public float motorForce = 50;
-    public float brakeForce = 50;
-    public float naturalDecelaration;
-    //public float wheelTurnDegree = 1;
+    //sensor variables
 
-    public bool rearWheelDrive = false;
-    public bool frontWheelDrive = false;
+    private RaycastHit hitForward;
+    private RaycastHit hitLeft;
+    private RaycastHit hitRight;
+    private List<RaycastHit> sensors = new List<RaycastHit>();
+    //private Vector3 leftSensorPos;
+    //private Vector3 rightSensorPos;
+
+    private Checkpoint checkpoint;
+    private float lookingDir;
 
 
-    //private void setSteeringAngle(float steerAngle)
-    //{ 
-    //    frontDriverW.steerAngle = steerAngle;
-    //    frontPassengerW.steerAngle = steerAngle;
-    //}
+
+    private void Start()
+    {
+        sensors.Add(hitForward);
+        sensors.Add(hitLeft);
+        sensors.Add(hitRight);
+
+        checkpoint = gameObject.GetComponent<Checkpoint>();
+    }
 
     public void Steer(float horizontal)
     {
@@ -133,6 +173,58 @@ public class NNCarController: MonoBehaviour
         rightBrakeLight.enabled = false;
     }
 
+    public List<RaycastHit> getSensors()
+    {
+        return sensors;
+    }
+
+    public float getLookingDir()
+    {
+        return lookingDir;
+    }
+
+    private void updateLookingDirection()
+    {
+        GameObject nextCheckpoint = checkpoint.nextCheckpoint();
+        lookingDir = Vector3.Dot(gameObject.transform.forward, (nextCheckpoint.transform.position - gameObject.transform.position).normalized);
+        //Debug.Log(lookingDir);
+    }
+
+    private void updateSensors()
+    {
+
+        RaycastHit tmpForward;
+        RaycastHit tmpLeft;
+        RaycastHit tmpRight;
+
+        //front sensor
+        if (Physics.Raycast(sensorForward.position, transform.forward, out tmpForward, sensorLength))
+        {
+            //Debug.Log("Front sensor: " + hitForward.collider.gameObject.name);
+            //Debug.Log("Front sensor: " + tmpForward.distance);
+
+        }
+        sensors[0] = tmpForward;
+        Debug.DrawLine(sensorForward.position, sensors[0].point);
+        //Debug.Log("Front sensor: " + sensors[0].distance);
+
+        //left sensor
+        if (Physics.Raycast(sensorLeft.position, Quaternion.AngleAxis(-sideSensorAngle, gameObject.transform.up) * transform.forward, out tmpLeft, sensorLength))
+        {
+            //Debug.Log("Left sensor: " + tmpLeft.distance);
+        }
+        sensors[1] = tmpLeft;
+        Debug.DrawLine(sensorLeft.position, sensors[1].point);
+
+        //right sensor
+        if (Physics.Raycast(sensorRight.position, Quaternion.AngleAxis(sideSensorAngle, gameObject.transform.up) * transform.forward, out tmpRight, sensorLength))
+        {
+            //Debug.Log("Right sensor: " + tmpRight.distance);
+        }
+        sensors[2] = tmpRight;
+        Debug.DrawLine(sensorRight.position, sensors[2].point);
+    }
+
 private void FixedUpdate()
     {
         //GetInput();
@@ -141,5 +233,7 @@ private void FixedUpdate()
         //Brake();
         ApplyChanges();
         UpdateWheelPoses();
+        updateSensors();
+        updateLookingDirection();
     }
 }

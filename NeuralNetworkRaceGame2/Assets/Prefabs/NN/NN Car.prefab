@@ -413,10 +413,12 @@ MonoBehaviour:
   rearPassengerT: {fileID: 1157394759131185022}
   leftBrakeLight: {fileID: 2134621678774553736}
   rightBrakeLight: {fileID: 3363886459731682482}
+  sensorLength: 15
+  frontSensorPosition: 0.5
+  sensorOffset: {x: 1, y: 0.3, z: 0}
   maxSteerAngle: 35
   motorForce: 600
   brakeForce: 1200
-  naturalDecelaration: 0
   rearWheelDrive: 0
   frontWheelDrive: 1
 --- !u!1 &6249662286796238259
@@ -658,7 +660,7 @@ PrefabInstance:
     - target: {fileID: 1915388834294883626, guid: 633d4faec92e9374da85c6f8354a45df,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.085
+      value: 0.137
       objectReference: {fileID: 0}
     - target: {fileID: 6806342454367642836, guid: 633d4faec92e9374da85c6f8354a45df,
         type: 3}

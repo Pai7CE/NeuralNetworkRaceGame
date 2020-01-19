@@ -16,22 +16,26 @@ public class CarAgent : Agent
     private Rigidbody rBody;
     private Checkpoint checkpoint;
     private NNCarController carController;
+    private ReducedDistance reducedDistance;
 
     private float dist;
+    private float lookingDir;
     void Start()
     {
         //Initializing components
         carController = gameObject.GetComponent<NNCarController>();
         checkpoint = gameObject.GetComponent<Checkpoint>();
-        rBody = gameObject.GetComponent<Rigidbody>();
-         
+        rBody = gameObject.GetComponent<Rigidbody>();         
         nextCheckpoint = checkpoint.nextCheckpoint();
-
-        dist = Vector3.Distance(nextCheckpoint.transform.position, gameObject.transform.position);
+        reducedDistance = gameObject.GetComponent<ReducedDistance>();
     }
 
     public override void CollectObservations()
     {
+        //Updating
+        List<RaycastHit> sensors = carController.getSensors();
+        lookingDir = carController.getLookingDir();
+
         //Checkpoint and Car positions
         AddVectorObs(nextCheckpoint.transform.localPosition);
         AddVectorObs(gameObject.transform.localPosition);
@@ -39,6 +43,14 @@ public class CarAgent : Agent
         //Agent velocity
         AddVectorObs(rBody.velocity.x);
         AddVectorObs(rBody.velocity.z);
+
+        //Sensors
+        AddVectorObs(normalize(sensors[0]));
+        AddVectorObs(normalize(sensors[1]));
+        AddVectorObs(normalize(sensors[2]));
+
+        AddVectorObs(lookingDir);
+        
     }
 
     //For manual control
@@ -60,7 +72,8 @@ public class CarAgent : Agent
 
     public override void AgentAction(float[] vectorAction)
     {
-        float oldist = Vector3.Distance(nextCheckpoint.transform.position, gameObject.transform.position);
+        List<RaycastHit> sensors = carController.getSensors();
+
         Vector3 controlSignal = Vector3.zero;
         controlSignal.z = vectorAction[0];
         controlSignal.x = vectorAction[1];
@@ -71,20 +84,30 @@ public class CarAgent : Agent
         Monitor.Log("Steering", controlSignal.z);
         Monitor.Log("Driving", controlSignal.x);
 
-        float newdist = Vector3.Distance(nextCheckpoint.transform.position, gameObject.transform.position);
-        if (newdist < oldist)
+        Monitor.Log("Front", (normalize(sensors[0])));
+        Monitor.Log("Left", (normalize(sensors[1])));
+        Monitor.Log("Right", (normalize(sensors[2])));
+
+        Monitor.Log("LookingDir", lookingDir);
+
+        //small reward for looking the right direction
+        if ((lookingDir > .94f) && (reducedDistance.distanceReducedToCheckpoint())) 
         {
-            AddReward(.1f);
+            AddReward(0.1f);
         }
-        
+        //if distance towards next checkpoint reduced agent gets rewarded
+        if (!reducedDistance.distanceReducedToCheckpoint())
+        {
+            AddReward(-0.01f);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if(collision.gameObject == wall)
         {
-            AddReward(-.8f);
-            Debug.Log("reward removed");
+            AddReward(-.5f);
+            checkpoint.resetCheckpoints();
             Done();
         }
     }
@@ -92,11 +115,24 @@ public class CarAgent : Agent
     {
         if(other.gameObject == nextCheckpoint)
         {
-            AddReward(1f);
-            Debug.Log("reward added");
+            AddReward(1.0f);
             //updating next checkpoint
             nextCheckpoint = checkpoint.nextCheckpoint();
         }
+    }
+
+    private float normalize(RaycastHit rchit)
+    {
+        float normLength;
+        if (rchit.distance == 0)
+        {
+            normLength = 1;
+        }
+        else
+        {
+            normLength = rchit.distance / carController.sensorLength;
+        }
+        return normLength;
     }
 
 }
