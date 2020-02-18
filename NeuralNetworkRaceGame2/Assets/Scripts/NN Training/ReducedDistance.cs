@@ -8,41 +8,47 @@ public class ReducedDistance : MonoBehaviour
     private float newDist;
 
     private Checkpoint checkpoint;
+    private bool distanceReduced;
 
     // Start is called before the first frame update
     void Start()
     {
+        distanceReduced = false;
         checkpoint = gameObject.GetComponent<Checkpoint>();
-        oldDist = Vector3.Distance(gameObject.transform.position, checkpoint.nextCheckpoint().transform.position);
+        //oldDist = Vector3.Distance(gameObject.transform.position, checkpoint.getCheckpoint(0).transform.position); //TODO: 
+        oldDist = 10;
     }
+
 
     // Update is called once per frame
     private void FixedUpdate()
     {
         distanceReducedToCheckpoint();
-        updateCheckpoint();
     }
 
-    public bool distanceReducedToCheckpoint()
+    public bool isDistanceReduced()
+    {
+        return distanceReduced;
+    }
+
+    private void distanceReducedToCheckpoint()
     {
         newDist = Vector3.Distance(gameObject.transform.position, checkpoint.nextCheckpoint().transform.position);
-
+        //Debug.Log("newDist " + newDist);
+        //Debug.Log("oldDist " + oldDist);
         if (oldDist > newDist)
         {
             oldDist = newDist;
             //Debug.Log(oldDist + " " + newDist);
             //Debug.Log("true");
-            return true;
+            distanceReduced = true;
             
         }
         else
         {
             //Debug.Log("false");
-            return false;
+            distanceReduced = false;
         }
     }
-    private void updateCheckpoint()
-    {
-
-    }
+    
 }

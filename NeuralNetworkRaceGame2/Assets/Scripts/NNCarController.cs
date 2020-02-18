@@ -29,8 +29,8 @@ public class NNCarController: MonoBehaviour
     public Transform sensorForward;
     public Transform sensorLeft;
     public Transform sensorRight;
-    public float startPositionSide;
-    public float sideSensorAngle;
+    public float sideSensorAngle = 90;
+    public float diaSensorAngle = 45;
     
     [Header("General")]
 
@@ -60,12 +60,15 @@ public class NNCarController: MonoBehaviour
     private RaycastHit hitForward;
     private RaycastHit hitLeft;
     private RaycastHit hitRight;
+    private RaycastHit hitDiaLeft;
+    private RaycastHit hitDiaRight;
     private List<RaycastHit> sensors = new List<RaycastHit>();
-    //private Vector3 leftSensorPos;
-    //private Vector3 rightSensorPos;
 
     private Checkpoint checkpoint;
+    private Rigidbody rBody;
+
     private float lookingDir;
+    private float speed;
 
 
 
@@ -74,8 +77,11 @@ public class NNCarController: MonoBehaviour
         sensors.Add(hitForward);
         sensors.Add(hitLeft);
         sensors.Add(hitRight);
+        sensors.Add(hitDiaLeft);
+        sensors.Add(hitDiaRight);
 
         checkpoint = gameObject.GetComponent<Checkpoint>();
+        rBody = gameObject.GetComponent<Rigidbody>();
     }
 
     public void Steer(float horizontal)
@@ -178,6 +184,30 @@ public class NNCarController: MonoBehaviour
         return sensors;
     }
 
+    public float getNormSensors(int i)
+    {
+        return normalize(sensors[i]);
+    }
+
+    public float getSpeed()
+    {
+        return speed;
+    }
+
+    private float normalize(RaycastHit rchit)
+    {
+        float normLength;
+        if (rchit.distance == 0)
+        {
+            normLength = 1;
+        }
+        else
+        {
+            normLength = rchit.distance / sensorLength;
+        }
+        return normLength;
+    }
+
     public float getLookingDir()
     {
         return lookingDir;
@@ -187,53 +217,74 @@ public class NNCarController: MonoBehaviour
     {
         GameObject nextCheckpoint = checkpoint.nextCheckpoint();
         lookingDir = Vector3.Dot(gameObject.transform.forward, (nextCheckpoint.transform.position - gameObject.transform.position).normalized);
-        //Debug.Log(lookingDir);
     }
 
     private void updateSensors()
     {
 
-        RaycastHit tmpForward;
-        RaycastHit tmpLeft;
-        RaycastHit tmpRight;
+        RaycastHit rForward;
+        RaycastHit rLeft;
+        RaycastHit rRight;
+        RaycastHit rDiaLeft;
+        RaycastHit rDiaRight;
 
         //front sensor
-        if (Physics.Raycast(sensorForward.position, transform.forward, out tmpForward, sensorLength))
+        if (Physics.Raycast(sensorForward.position, transform.forward, out rForward, sensorLength))
         {
             //Debug.Log("Front sensor: " + hitForward.collider.gameObject.name);
             //Debug.Log("Front sensor: " + tmpForward.distance);
 
         }
-        sensors[0] = tmpForward;
+        sensors[0] = rForward;
         Debug.DrawLine(sensorForward.position, sensors[0].point);
         //Debug.Log("Front sensor: " + sensors[0].distance);
 
         //left sensor
-        if (Physics.Raycast(sensorLeft.position, Quaternion.AngleAxis(-sideSensorAngle, gameObject.transform.up) * transform.forward, out tmpLeft, sensorLength))
+        if (Physics.Raycast(sensorLeft.position, Quaternion.AngleAxis(-sideSensorAngle, gameObject.transform.up) * transform.forward, out rLeft, sensorLength))
         {
             //Debug.Log("Left sensor: " + tmpLeft.distance);
         }
-        sensors[1] = tmpLeft;
+        sensors[1] = rLeft;
         Debug.DrawLine(sensorLeft.position, sensors[1].point);
 
         //right sensor
-        if (Physics.Raycast(sensorRight.position, Quaternion.AngleAxis(sideSensorAngle, gameObject.transform.up) * transform.forward, out tmpRight, sensorLength))
+        if (Physics.Raycast(sensorRight.position, Quaternion.AngleAxis(sideSensorAngle, gameObject.transform.up) * transform.forward, out rRight, sensorLength))
         {
             //Debug.Log("Right sensor: " + tmpRight.distance);
         }
-        sensors[2] = tmpRight;
+        sensors[2] = rRight;
         Debug.DrawLine(sensorRight.position, sensors[2].point);
+
+        //diagonal left sensor
+        if (Physics.Raycast(sensorLeft.position, Quaternion.AngleAxis(-diaSensorAngle, gameObject.transform.up) * transform.forward, out rDiaLeft, sensorLength))
+        {
+            //Debug.Log("Right sensor: " + tmpRight.distance);
+        }
+        sensors[3] = rDiaLeft;
+        Debug.DrawLine(sensorLeft.position, sensors[3].point);
+
+        //diagonal Right sensor
+        if (Physics.Raycast(sensorRight.position, Quaternion.AngleAxis(diaSensorAngle, gameObject.transform.up) * transform.forward, out rDiaRight, sensorLength))
+        {
+            //Debug.Log("Right sensor: " + tmpRight.distance);
+        }
+        sensors[4] = rDiaRight;
+        Debug.DrawLine(sensorRight.position, sensors[4].point);
+
+    }
+
+    private void updateSpeed()
+    {
+        double velocity = rBody.velocity.magnitude * 3.6;
+        speed = (float)System.Math.Round(velocity, 0);
     }
 
 private void FixedUpdate()
     {
-        //GetInput();
-        //Steer();
-        //Accelerate();
-        //Brake();
         ApplyChanges();
         UpdateWheelPoses();
         updateSensors();
         updateLookingDirection();
+        updateSpeed();
     }
 }

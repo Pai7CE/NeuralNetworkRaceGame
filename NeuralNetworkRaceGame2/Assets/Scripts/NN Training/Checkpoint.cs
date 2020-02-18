@@ -7,13 +7,14 @@ public class Checkpoint : MonoBehaviour
     private List<GameObject> checkpoints = new List<GameObject>();
     public GameObject test;
 
+    private TimeBetweenCheckpoints timeCheckpoints;
     private int checkpointCount;
 
     // Start is called before the first frame update
     void Start()
     {
+        timeCheckpoints = gameObject.GetComponent<TimeBetweenCheckpoints>();
         //Init list
-        Debug.Log(test.transform.childCount);
         for (int i=0; i < test.transform.childCount; i++)
         {
             checkpoints.Add(test.transform.GetChild(i).gameObject);
@@ -21,27 +22,34 @@ public class Checkpoint : MonoBehaviour
         checkpointCount = 0; //Starting with 0        
     }
 
-    private void OnTriggerEnter(Collider other)
+    public GameObject checkCheckpoint(Collider other)
     {
-        if(other.gameObject == checkpoints[checkpointCount])
+        if (other.gameObject == checkpoints[checkpointCount])
         {
-            Debug.Log("Checkpoint [" + (checkpointCount + 1) + "/" + checkpoints.Count + "] reached" );
+            Debug.Log("Checkpoint [" + (checkpointCount + 1) + "/" + checkpoints.Count + "] reached"); 
             checkpointCount++;
+            timeCheckpoints.resetTimer();
         }
-        if(checkpointCount == checkpoints.Count) //if the finish line is reached..
+        if (checkpointCount == checkpoints.Count) //if the finish line is reached..
         {
             Debug.Log("Finish!");
             resetCheckpoints();
         }
+        return checkpoints[checkpointCount];
     }
 
-    public void resetCheckpoints()
+    public void resetCheckpoints() //resetting checkpoint count
     {
         checkpointCount = 0;
     }
 
-    public GameObject nextCheckpoint() //returns the next checkpoint
+    public GameObject nextCheckpoint() //returns the current next checkpoint
     {
         return checkpoints[checkpointCount];
+    }
+
+    public GameObject getCheckpoint(int i) //returns the next checkpoint
+    {
+        return checkpoints[i];
     }
 }

@@ -8,6 +8,7 @@ public class CameraController : MonoBehaviour
     public Vector3 offset = new Vector3(0f,.83f,-2.54f);
     public float followSpeed = 10;
     public float lookSpeed = 10;
+    public bool follow = false;
 
     private void LookAtTarget()
     {
@@ -27,8 +28,11 @@ public class CameraController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        LookAtTarget();
-        MoveToTarget();
+        if (follow)
+        {
+            LookAtTarget();
+            MoveToTarget();
+        }
     }
 
    

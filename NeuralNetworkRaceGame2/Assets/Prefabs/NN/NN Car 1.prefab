@@ -739,7 +739,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    vectorObservationSize: 8
+    vectorObservationSize: 14
     numStackedVectorObservations: 1
     vectorActionSize: 02000000
     vectorActionDescriptions: []
@@ -774,48 +774,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8e4b118ad0ba194fa413912871f5fee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  checkpoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  test: {fileID: 0}
 --- !u!114 &5556498280829821235
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -838,12 +797,12 @@ MonoBehaviour:
   rearPassengerT: {fileID: 2981124671446286707}
   leftBrakeLight: {fileID: 3801220618485742272}
   rightBrakeLight: {fileID: 572513444113322746}
-  sensorLength: 20
-  sensorForward: {fileID: 0}
-  sensorLeft: {fileID: 0}
-  sensorRight: {fileID: 0}
-  startPositionSide: 0
-  sideSensorAngle: 0
+  sensorLength: 7
+  sensorForward: {fileID: 9149253889078269738}
+  sensorLeft: {fileID: 2626860480336204324}
+  sensorRight: {fileID: 651143267443227094}
+  sideSensorAngle: 90
+  diaSensorAngle: 45
   maxSteerAngle: 25
   motorForce: 100
   brakeForce: 1200
@@ -1726,7 +1685,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7061580575875530947}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: 0.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 9149253889078269738}
