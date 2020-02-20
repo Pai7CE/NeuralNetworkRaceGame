@@ -5,7 +5,7 @@ using UnityEngine;
 public class Checkpoint : MonoBehaviour
 {
     private List<GameObject> checkpoints = new List<GameObject>();
-    public GameObject test;
+    public GameObject allCheckpoints;
 
     private TimeBetweenCheckpoints timeCheckpoints;
     private int checkpointCount;
@@ -15,9 +15,9 @@ public class Checkpoint : MonoBehaviour
     {
         timeCheckpoints = gameObject.GetComponent<TimeBetweenCheckpoints>();
         //Init list
-        for (int i=0; i < test.transform.childCount; i++)
+        for (int i=0; i < allCheckpoints.transform.childCount; i++)
         {
-            checkpoints.Add(test.transform.GetChild(i).gameObject);
+            checkpoints.Add(allCheckpoints.transform.GetChild(i).gameObject);
         }
         checkpointCount = 0; //Starting with 0        
     }

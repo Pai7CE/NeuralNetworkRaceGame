@@ -118,7 +118,7 @@ public class CarAgent : Agent
             //Debug.Log("Reward added (Direction)");
         }
         //Reset agent if next checkpoint isn't reached in 1 Minute
-        if(timeCheckpoints.getTimer() > 60f)
+        if(timeCheckpoints.getTimer() > timeCheckpoints.resetTime)
         {
             timeCheckpoints.resetTimer();
             Done();

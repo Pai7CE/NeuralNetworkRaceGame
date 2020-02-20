@@ -6,6 +6,7 @@ public class TimeBetweenCheckpoints : MonoBehaviour
 {
 
     private float timer;
+    public float resetTime;
 
     // Start is called before the first frame update
     void Start()
