@@ -64,13 +64,14 @@ public class CarController0 : MonoBehaviour
   private RaycastHit hitDiaRight;
   private List<RaycastHit> sensors = new List<RaycastHit>();
 
-  private CheckpointHandler checkpoint;
+  //private CheckpointHandler checkpoint;
   private Rigidbody rBody;
-
+  public GameObject nextCheckpoint { get; set; }
   private float lookingDir;
   private float speed;
 
-
+  //Used classes
+  private CollisionHandler collisionHandler;
 
   private void Start()
   {
@@ -80,8 +81,9 @@ public class CarController0 : MonoBehaviour
     sensors.Add(hitDiaLeft);
     sensors.Add(hitDiaRight);
 
-    checkpoint = gameObject.GetComponent<CheckpointHandler>();
+    //checkpoint = gameObject.GetComponent<CheckpointHandler>();
     rBody = gameObject.GetComponent<Rigidbody>();
+    collisionHandler = new CollisionHandler(gameObject.GetComponent<Rigidbody>(), gameObject.transform.position, gameObject.transform.rotation);
   }
 
   public void Steer(float horizontal)
@@ -131,7 +133,7 @@ public class CarController0 : MonoBehaviour
     }
   }
   //Applies all changes made in FixedUpdate for stable physics
-  private void ApplyChanges()
+  private void ApplyInputs()
   {
     //Updating steer angle
     frontDriverW.steerAngle = newSteerangle;
@@ -160,8 +162,8 @@ public class CarController0 : MonoBehaviour
 
   private void UpdateWheelPose(WheelCollider _collider, Transform _transform)
   {
-    Vector3 pos; //= _transform.position
-    Quaternion quat; // = _transform.rotation
+    Vector3 pos;
+    Quaternion quat; 
 
     _collider.GetWorldPose(out pos, out quat);
 
@@ -213,9 +215,13 @@ public class CarController0 : MonoBehaviour
     return lookingDir;
   }
 
+  public void ResetCar()
+  {
+    collisionHandler.ResetCar();
+  }
+
   private void UpdateLookingDirection()
   {
-    GameObject nextCheckpoint = checkpoint.NextCheckpoint();
     lookingDir = Vector3.Dot(gameObject.transform.forward, (nextCheckpoint.transform.position - gameObject.transform.position).normalized);
   }
 
@@ -256,7 +262,7 @@ public class CarController0 : MonoBehaviour
     Debug.DrawLine(sensorRight.position, sensors[2].point);
 
     //diagonal left sensor
-    if (Physics.Raycast(sensorLeft.position, Quaternion.AngleAxis(-diaSensorAngle, gameObject.transform.up) * transform.forward, out rDiaLeft, sensorLength))
+    if (Physics.Raycast(sensorForward.position, Quaternion.AngleAxis(-diaSensorAngle, gameObject.transform.up) * transform.forward, out rDiaLeft, sensorLength))
     {
       //Debug.Log("Right sensor: " + tmpRight.distance);
     }
@@ -279,12 +285,17 @@ public class CarController0 : MonoBehaviour
     speed = (float)System.Math.Round(velocity, 0);
   }
 
+
+  private void Update()
+  {
+    UpdateSpeed();
+    UpdateLookingDirection();
+    UpdateSensors();
+  }
+
   private void FixedUpdate()
   {
-    ApplyChanges();
+    ApplyInputs();
     UpdateWheelPoses();
-    UpdateSensors();
-    UpdateLookingDirection();
-    UpdateSpeed();
   }
 }
