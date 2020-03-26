@@ -5,27 +5,29 @@ using MLAgents;
 
 public class CarAgent : Agent
 {
+  [Header("Evaluation")]
+  public bool input15 = false;
+  public bool output3 = false;
+
+  [Header("Map")]
   public float mapMaxX;
   public float mapMaxZ;
 
   private GameObject nextCheckpoint;
   //Components
   private Rigidbody rBody;
-  private CarController0 carController;
+  private CarController carController;
   private EnviormentHandler enviormentHandler; 
 
   private float lookingDir;
-  private float reward;
-  private float games;
+  private int games;
 
   void Start()
   {
     //Initializing components
-    carController = gameObject.GetComponent<CarController0>();
+    carController = gameObject.GetComponent<CarController>();
     rBody = gameObject.GetComponent<Rigidbody>();
     enviormentHandler = gameObject.GetComponent<EnviormentHandler>();
-
-    reward = 0;
     games = 0;
   }
 
@@ -53,19 +55,32 @@ public class CarAgent : Agent
     AddVectorObs(carController.GetNormSensors(2));
     AddVectorObs(carController.GetNormSensors(3));
     AddVectorObs(carController.GetNormSensors(4));
+    if (input15)
+    {
+      AddVectorObs(carController.GetNormSensors(5));
+      AddVectorObs(carController.GetNormSensors(6));
+    }
   }
 
   public override void AgentAction(float[] vectorAction)
   {
-    Vector3 controlSignal = Vector3.zero;
-    controlSignal.z = vectorAction[0];
-    controlSignal.x = vectorAction[1];
-    carController.Steer(controlSignal.z);
-    carController.Drive(controlSignal.x);
+    if (output3)
+    {
+
+    }
+    else
+    {
+      Vector3 controlSignal = Vector3.zero;
+      controlSignal.z = vectorAction[0];
+      controlSignal.x = vectorAction[1];
+      carController.Steer(controlSignal.z);
+      carController.Drive(controlSignal.x);
+
+      Monitor.Log("Steering", controlSignal.z);
+      Monitor.Log("Driving", controlSignal.x);
+    }
 
     //on screen monitoring of values
-    Monitor.Log("Steering", controlSignal.z);
-    Monitor.Log("Driving", controlSignal.x);
 
     Monitor.Log("Front", (carController.GetNormSensors(0)));
     Monitor.Log("Left", (carController.GetNormSensors(1)));
@@ -73,31 +88,37 @@ public class CarAgent : Agent
     Monitor.Log("diaLeft", (carController.GetNormSensors(3)));
     Monitor.Log("diaRight", (carController.GetNormSensors(4)));
 
+    if (input15)
+    {
+      Monitor.Log("diaLeft2", (carController.GetNormSensors(5)));
+      Monitor.Log("diaRight2", (carController.GetNormSensors(6)));
+    }
+
     Monitor.Log("LookingDir", "" + lookingDir);
 
-    Monitor.Log("Reward", "" + reward);
     Monitor.Log("Games", "" + games);
     Monitor.Log("Speed", "" + carController.GetSpeed());
     Monitor.Log("Time Checkpoint", "" + enviormentHandler.GetTimerCheckpoint());
     Monitor.Log("Time Game", "" + enviormentHandler.GetTimerGame());
+    Monitor.Log("Timer Round", ""+ enviormentHandler.GetTimerRound());
     Monitor.Log("MapZ", gameObject.transform.position.z / mapMaxZ);
     Monitor.Log("MapX", gameObject.transform.position.x / mapMaxX);
 
     //small reward for looking the right direction and getting higher with speed 
     if (lookingDir > .90f && (carController.GetSpeed() >= 1))
     {
-      AddMyReward(0.0005f * carController.GetSpeed());
+      AddReward(0.0005f * carController.GetSpeed());
       Debug.Log("Reward added (Direction)");
     }
     else
     {
-      TimePunishment();
+      NoMovementPunishment();
     }
 
     //Reset agent if next checkpoint isn't reached in 1 Minute
     if (enviormentHandler.GetTimerCheckpoint() > enviormentHandler.resetTimer)
     {
-      enviormentHandler.ResetTimerCheckpoint();
+      enviormentHandler.SaveRound(games-1, false);
       Done();
     }
   }
@@ -125,9 +146,9 @@ public class CarAgent : Agent
   {
     if (collision.gameObject.tag == "wall")
     {
-      AddMyReward(-1.0f);
+      AddReward(-1.0f);
       Debug.Log("Reward removed (Wall)");
-      enviormentHandler.ResetCheckpoints();
+      enviormentHandler.SaveRound(games-1, false);
       Done();
     }
   }
@@ -135,9 +156,18 @@ public class CarAgent : Agent
   {
     if (other.gameObject == nextCheckpoint)
     {
-      AddMyReward(.5f);
       //updating next checkpoint
       enviormentHandler.CheckCheckpoint(other);
+      if (enviormentHandler.IsFinish())
+      {
+        enviormentHandler.SaveRound(games-1, true);
+        Done();
+        AddReward(1f);
+      }
+      else
+      {
+        AddReward(.3f);
+      }
       UpdateCheckpoint();
       Debug.Log("Reward added (Checkpoint)");
     }
@@ -149,15 +179,15 @@ public class CarAgent : Agent
     carController.nextCheckpoint = enviormentHandler.NextCheckpoint();
   }
 
-  private void TimePunishment()
+  private void NoMovementPunishment()
   {
-    AddMyReward(-.001f);
+    AddReward(-.001f);
   }
 
   //functions to keep track in realtime of the reward
-  private void AddMyReward(float amount)
-  {
-    AddReward(amount);
-    reward += amount;
-  }
+  //private void AddMyReward(float amount)
+  //{
+  //  AddReward(amount);
+  //  reward += amount;
+  //}
 }

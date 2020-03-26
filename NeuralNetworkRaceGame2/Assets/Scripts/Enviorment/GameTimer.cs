@@ -6,6 +6,7 @@ public class GameTimer
 {
 
   public float timerGame { get; set; }
+  public float timerRound { get; set; }
   public float timerCheckpoint { get; set; }
   private float resetTime;
 
@@ -14,6 +15,7 @@ public class GameTimer
     this.resetTime = resetTime;
     timerGame = 0;
     timerCheckpoint = 0;
+    timerRound = 0;
   }
 
   //updates time
@@ -21,5 +23,9 @@ public class GameTimer
   {
     timerCheckpoint += Time.deltaTime;
     timerGame += Time.deltaTime;
+    timerRound += Time.deltaTime;
   }
+
+
+
 }

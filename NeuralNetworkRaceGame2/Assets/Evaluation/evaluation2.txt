@@ -1,0 +1,18 @@
+Alle aufgezeichneten Runden: (5) 
+1.: N.A. 
+2.: N.A. 
+3.: 00:03:71
+4.: 00:03:68
+5.: 00:03:67
+
+Erfolgreiche Runden: 3/5
+
+Durchschnitt erfolgreicher Runden: 00:03:69
+1.: 00:03:71
+2.: 00:03:68
+3.: 00:03:67
+
+Durchschnitt der besten 3 Runden: 00:03:69
+1.: 00:03:67
+2.: 00:03:68
+3.: 00:03:71

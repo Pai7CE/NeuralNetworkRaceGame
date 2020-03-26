@@ -40,11 +40,6 @@ public class CheckpointHandler
     {
       Debug.Log("Checkpoint [" + (checkpointCount + 1) + "/" + checkpoints.Count + "] reached");
       checkpointCount++;
-      if (checkpointCount == checkpoints.Count) //if the finish line is reached..
-      {
-        Debug.Log("Finish!");
-        ResetCheckpoints();
-      }
       return true;
     }
     return false;
@@ -53,6 +48,17 @@ public class CheckpointHandler
   public void ResetCheckpoints() //resetting checkpoint count
   {
     checkpointCount = 0;
+  }
+
+  public bool IsFinish()
+  {
+    if(checkpointCount == checkpoints.Count)
+    {
+      ResetCheckpoints();
+      Debug.Log("Finish!");
+      return true;
+    }
+    return false;
   }
 
   public GameObject NextCheckpoint() //returns the current next checkpoint

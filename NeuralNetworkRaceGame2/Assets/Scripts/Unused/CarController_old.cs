@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CarController: MonoBehaviour
+public class CarController_old: MonoBehaviour
 {
     private float horizontalInput;
     private float verticalInput;
