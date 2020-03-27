@@ -45,7 +45,7 @@ public class CarController : MonoBehaviour
   //public float wheelTurnDegree = 1;
 
   public bool rearWheelDrive = false;
-  public bool frontWheelDrive = false;
+  public bool frontWheelDrive = true;
 
   private float newSteerangle = 0f;
 
@@ -99,6 +99,51 @@ public class CarController : MonoBehaviour
     newSteerangle = maxSteerAngle * horizontal;
   }
 
+  public void Accelerate(float acceleration)
+  {
+    if(acceleration >= 0)
+    {
+      newRDBrake = 0;
+      newRPBrake = 0;
+      newFDBrake = 0;
+      newFPBrake = 0;
+      if (rearWheelDrive)
+      {
+        newRDMotor = acceleration * motorForce;
+        newRPMotor = acceleration * motorForce;
+      }
+      if (frontWheelDrive)
+      {
+        newFDMotor = acceleration * motorForce;
+        newFPMotor = acceleration * motorForce;
+      }
+    }
+  }
+
+  public void Brake(float breaking)
+  {
+    if (breaking < 0)
+    {
+      EnableBrakeLights();
+
+      rearDriverW.motorTorque = newRDMotor;
+      rearPassengerW.motorTorque = newRPMotor;
+      frontDriverW.motorTorque = newFDMotor;
+      frontPassengerW.motorTorque = newFPMotor;
+
+      //4W braking
+      //rearDriverW.brakeTorque = m_negVerticalInput * brakeForce;
+      //rearPassengerW.brakeTorque = m_negVerticalInput * brakeForce;
+      newFDBrake = -breaking * brakeForce;
+      newFPBrake = -breaking * brakeForce;
+    }
+    else
+    {
+      DisableBrakeLights();
+    }
+  }
+
+  //both accelarating and braking in one function for working with 2 inputs
   public void Drive(float vertical)
   {
     if (vertical >= 0)

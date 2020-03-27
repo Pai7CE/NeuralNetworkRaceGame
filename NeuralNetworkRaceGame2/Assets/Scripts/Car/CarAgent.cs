@@ -66,7 +66,17 @@ public class CarAgent : Agent
   {
     if (output3)
     {
+      Vector3 controlSignal = Vector3.zero;
+      controlSignal.z = vectorAction[0];
+      controlSignal.x = vectorAction[1];
+      controlSignal.y = vectorAction[2];
+      carController.Steer(controlSignal.z);
+      carController.Accelerate(controlSignal.x);
+      carController.Brake(controlSignal.y);
 
+      Monitor.Log("Steering", controlSignal.z);
+      Monitor.Log("Acceleration", controlSignal.x);
+      Monitor.Log("Break", controlSignal.y);
     }
     else
     {
@@ -134,12 +144,25 @@ public class CarAgent : Agent
   //For manual control
   public override float[] Heuristic()
   {
-    var action = new float[2];
-    //steering
-    action[0] = Input.GetAxis("Horizontal");
-    //Accelaration & Brakes
-    action[1] = Input.GetAxis("Vertical");
-    return action;
+    var action = new float[3];
+    if (output3)
+    {
+      action = new float[3];
+      //steering
+      action[0] = Input.GetAxis("Horizontal");
+      //Accelaration & Brakes
+      action[1] = Input.GetAxis("Vertical");
+      action[2] = Input.GetAxis("Vertical");
+    }
+    else
+    {
+      action = new float[2];
+      //steering
+      action[0] = Input.GetAxis("Horizontal");
+      //Accelaration & Brakes
+      action[1] = Input.GetAxis("Vertical");
+    }
+      return action;
   }
 
   private void OnCollisionEnter(Collision collision)
