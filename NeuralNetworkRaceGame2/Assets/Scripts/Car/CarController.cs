@@ -5,8 +5,8 @@ using UnityEngine;
 public class CarController : MonoBehaviour
 {
   [Header("Evaluation")]
-  public bool input15;
-  public bool output3;
+  public bool addInputs;
+  public bool addOutputs;
 
   [Header("Wheelcollider")]
   public WheelCollider frontDriverW;
@@ -332,7 +332,7 @@ public class CarController : MonoBehaviour
     sensors[4] = rDiaRight;
     Debug.DrawLine(sensorRight.position, sensors[4].point);
 
-    if (input15)
+    if (addInputs)
     {
       //diagonal left sensor
       if (Physics.Raycast(sensorForward.position, Quaternion.AngleAxis(-diaSensorAngle2, gameObject.transform.up) * transform.forward, out rDiaLeft2, sensorLength))

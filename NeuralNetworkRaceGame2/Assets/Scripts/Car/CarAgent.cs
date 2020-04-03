@@ -6,8 +6,8 @@ using MLAgents;
 public class CarAgent : Agent
 {
   [Header("Evaluation")]
-  public bool input15 = false;
-  public bool output3 = false;
+  public bool addInputs = false;
+  public bool addOutputs = false;
 
   [Header("Map")]
   public float mapMaxX;
@@ -46,8 +46,8 @@ public class CarAgent : Agent
     AddVectorObs(lookingDir);
 
     //Agent velocity
-    AddVectorObs(rBody.velocity.x);
-    AddVectorObs(rBody.velocity.z);
+    //AddVectorObs(rBody.velocity.x);
+    //AddVectorObs(rBody.velocity.z);
 
     //Sensors
     AddVectorObs(carController.GetNormSensors(0));
@@ -55,7 +55,7 @@ public class CarAgent : Agent
     AddVectorObs(carController.GetNormSensors(2));
     AddVectorObs(carController.GetNormSensors(3));
     AddVectorObs(carController.GetNormSensors(4));
-    if (input15)
+    if (addInputs)
     {
       AddVectorObs(carController.GetNormSensors(5));
       AddVectorObs(carController.GetNormSensors(6));
@@ -64,11 +64,13 @@ public class CarAgent : Agent
 
   public override void AgentAction(float[] vectorAction)
   {
-    if (output3)
+    Vector3 controlSignal = Vector3.zero;
+    
+    controlSignal.z = vectorAction[0];
+    controlSignal.x = vectorAction[1];
+
+    if (addOutputs)
     {
-      Vector3 controlSignal = Vector3.zero;
-      controlSignal.z = vectorAction[0];
-      controlSignal.x = vectorAction[1];
       controlSignal.y = vectorAction[2];
       carController.Steer(controlSignal.z);
       carController.Accelerate(controlSignal.x);
@@ -80,9 +82,6 @@ public class CarAgent : Agent
     }
     else
     {
-      Vector3 controlSignal = Vector3.zero;
-      controlSignal.z = vectorAction[0];
-      controlSignal.x = vectorAction[1];
       carController.Steer(controlSignal.z);
       carController.Drive(controlSignal.x);
 
@@ -98,7 +97,7 @@ public class CarAgent : Agent
     Monitor.Log("diaLeft", (carController.GetNormSensors(3)));
     Monitor.Log("diaRight", (carController.GetNormSensors(4)));
 
-    if (input15)
+    if (addInputs)
     {
       Monitor.Log("diaLeft2", (carController.GetNormSensors(5)));
       Monitor.Log("diaRight2", (carController.GetNormSensors(6)));
@@ -145,7 +144,7 @@ public class CarAgent : Agent
   public override float[] Heuristic()
   {
     var action = new float[3];
-    if (output3)
+    if (addOutputs)
     {
       action = new float[3];
       //steering

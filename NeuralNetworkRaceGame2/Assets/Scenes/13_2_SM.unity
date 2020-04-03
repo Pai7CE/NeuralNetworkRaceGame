@@ -1803,12 +1803,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Model
       value: 
-      objectReference: {fileID: 5022602860645237092, guid: 235250b6b5a2b17408940b8df527b91d,
-        type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 7948732876443645013, guid: 316ca33bdcfc3124f9641011c261660e,
         type: 3}
       propertyPath: m_BehaviorType
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7948732876443645013, guid: 316ca33bdcfc3124f9641011c261660e,
+        type: 3}
+      propertyPath: m_BrainParameters.vectorObservationSize
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 5954037166981741174, guid: 316ca33bdcfc3124f9641011c261660e,
         type: 3}
@@ -1829,6 +1833,11 @@ PrefabInstance:
         type: 3}
       propertyPath: amntTopRounds
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583048250076402871, guid: 316ca33bdcfc3124f9641011c261660e,
+        type: 3}
+      propertyPath: motorForce
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 316ca33bdcfc3124f9641011c261660e, type: 3}
