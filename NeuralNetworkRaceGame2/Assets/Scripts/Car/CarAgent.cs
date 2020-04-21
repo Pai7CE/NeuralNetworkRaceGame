@@ -15,7 +15,6 @@ public class CarAgent : Agent
 
   private GameObject nextCheckpoint;
   //Components
-  private Rigidbody rBody;
   private CarController carController;
   private EnviormentHandler enviormentHandler; 
 
@@ -26,7 +25,6 @@ public class CarAgent : Agent
   {
     //Initializing components
     carController = gameObject.GetComponent<CarController>();
-    rBody = gameObject.GetComponent<Rigidbody>();
     enviormentHandler = gameObject.GetComponent<EnviormentHandler>();
     games = 0;
   }
@@ -40,14 +38,10 @@ public class CarAgent : Agent
     //Checkpoint and Car positions
     AddVectorObs(gameObject.transform.position.x/mapMaxX);
     AddVectorObs(gameObject.transform.position.z / mapMaxZ);
-    AddVectorObs(nextCheckpoint.transform.position.x /mapMaxX);
+    AddVectorObs(nextCheckpoint.transform.position.x / mapMaxX);
     AddVectorObs(nextCheckpoint.transform.position.z / mapMaxZ);
     AddVectorObs(carController.GetSpeed());
     AddVectorObs(lookingDir);
-
-    //Agent velocity
-    //AddVectorObs(rBody.velocity.x);
-    //AddVectorObs(rBody.velocity.z);
 
     //Sensors
     AddVectorObs(carController.GetNormSensors(0));
