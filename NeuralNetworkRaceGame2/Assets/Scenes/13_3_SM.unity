@@ -3365,5 +3365,35 @@ PrefabInstance:
       propertyPath: m_BehaviorType
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5736361873565074434, guid: d2e8cee8ec5473041bfe0ac53ac0373b,
+        type: 3}
+      propertyPath: m_BrainParameters.vectorObservationSize
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 5736361873565074433, guid: d2e8cee8ec5473041bfe0ac53ac0373b,
+        type: 3}
+      propertyPath: addInputs
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5736361873565074433, guid: d2e8cee8ec5473041bfe0ac53ac0373b,
+        type: 3}
+      propertyPath: addOutputs
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2183813493979030752, guid: d2e8cee8ec5473041bfe0ac53ac0373b,
+        type: 3}
+      propertyPath: addInputs
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2183813493979030752, guid: d2e8cee8ec5473041bfe0ac53ac0373b,
+        type: 3}
+      propertyPath: addOutputs
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2183813493979030752, guid: d2e8cee8ec5473041bfe0ac53ac0373b,
+        type: 3}
+      propertyPath: diaSensorAngle2
+      value: 35
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2e8cee8ec5473041bfe0ac53ac0373b, type: 3}

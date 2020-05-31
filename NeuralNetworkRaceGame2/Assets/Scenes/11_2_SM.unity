@@ -1803,7 +1803,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Model
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5022602860645237092, guid: aaa4cf0b645ef444ba92e691d20410af,
+        type: 3}
     - target: {fileID: 7948732876443645013, guid: 316ca33bdcfc3124f9641011c261660e,
         type: 3}
       propertyPath: m_BehaviorType
@@ -1817,12 +1818,12 @@ PrefabInstance:
     - target: {fileID: 5954037166981741174, guid: 316ca33bdcfc3124f9641011c261660e,
         type: 3}
       propertyPath: evaluate
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5954037166981741174, guid: 316ca33bdcfc3124f9641011c261660e,
         type: 3}
       propertyPath: fileName
-      value: testEvaluation
+      value: 11_2_S_2
       objectReference: {fileID: 0}
     - target: {fileID: 5954037166981741174, guid: 316ca33bdcfc3124f9641011c261660e,
         type: 3}
@@ -1838,6 +1839,11 @@ PrefabInstance:
         type: 3}
       propertyPath: motorForce
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583048250076402871, guid: 316ca33bdcfc3124f9641011c261660e,
+        type: 3}
+      propertyPath: diaSensorAngle2
+      value: 35
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 316ca33bdcfc3124f9641011c261660e, type: 3}

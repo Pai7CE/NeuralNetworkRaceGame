@@ -3354,6 +3354,47 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6861387642786283964, guid: 9242c779d5feb494190c132c983dcada,
+        type: 3}
+      propertyPath: addInputs
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6861387642786283964, guid: 9242c779d5feb494190c132c983dcada,
+        type: 3}
+      propertyPath: addOutputs
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6861387642786283967, guid: 9242c779d5feb494190c132c983dcada,
+        type: 3}
+      propertyPath: m_BrainParameters.vectorObservationSize
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 6861387642786283967, guid: 9242c779d5feb494190c132c983dcada,
+        type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 8d439aafc0251fe4db35366f2cee86c9,
+        type: 3}
+    - target: {fileID: 1075616779460141405, guid: 9242c779d5feb494190c132c983dcada,
+        type: 3}
+      propertyPath: addOutputs
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1075616779460141405, guid: 9242c779d5feb494190c132c983dcada,
+        type: 3}
+      propertyPath: diaSensorAngle2
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194470284337287068, guid: 9242c779d5feb494190c132c983dcada,
+        type: 3}
+      propertyPath: fileName
+      value: 11_3_L
+      objectReference: {fileID: 0}
+    - target: {fileID: 7194470284337287068, guid: 9242c779d5feb494190c132c983dcada,
+        type: 3}
+      propertyPath: evaluate
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9242c779d5feb494190c132c983dcada, type: 3}
 --- !u!4 &8110337644543838059 stripped

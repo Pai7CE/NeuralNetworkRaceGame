@@ -3359,6 +3359,11 @@ PrefabInstance:
       propertyPath: output3
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8110337645507688890, guid: 962511f964177c0468b7e2a47505b253,
+        type: 3}
+      propertyPath: addInputs
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8110337645507688889, guid: 962511f964177c0468b7e2a47505b253,
         type: 3}
       propertyPath: m_BrainParameters.vectorActionSize.Array.data[0]
@@ -3368,16 +3373,47 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Model
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5022602860645237092, guid: bf0f0de3dab07214c84e4077fcaaefaa,
+        type: 3}
     - target: {fileID: 8110337645507688889, guid: 962511f964177c0468b7e2a47505b253,
         type: 3}
       propertyPath: m_BehaviorName
       value: CarBrain
       objectReference: {fileID: 0}
+    - target: {fileID: 8110337645507688889, guid: 962511f964177c0468b7e2a47505b253,
+        type: 3}
+      propertyPath: m_BrainParameters.vectorObservationSize
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8110337645507688889, guid: 962511f964177c0468b7e2a47505b253,
+        type: 3}
+      propertyPath: m_BehaviorType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2402781900370696539, guid: 962511f964177c0468b7e2a47505b253,
         type: 3}
       propertyPath: output3
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402781900370696539, guid: 962511f964177c0468b7e2a47505b253,
+        type: 3}
+      propertyPath: addInputs
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2402781900370696539, guid: 962511f964177c0468b7e2a47505b253,
+        type: 3}
+      propertyPath: diaSensorAngle2
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 5504201596297918362, guid: 962511f964177c0468b7e2a47505b253,
+        type: 3}
+      propertyPath: fileName
+      value: 13_2_L
+      objectReference: {fileID: 0}
+    - target: {fileID: 5504201596297918362, guid: 962511f964177c0468b7e2a47505b253,
+        type: 3}
+      propertyPath: evaluate
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 962511f964177c0468b7e2a47505b253, type: 3}
